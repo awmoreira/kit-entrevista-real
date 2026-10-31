@@ -2,7 +2,7 @@
 
 ## Antes da primeira tentativa
 
-Edição 1.0.0. Leia o guia, prepare o ambiente e copie as fichas para minhas-respostas. Separe o volume de gabaritos até terminar sua tentativa. Os enunciados deste caderno são fictícios. No bloco de histórico e nas perguntas comportamentais, responda com experiências reais suas.
+Edição 1.1.0. Leia o guia, prepare o ambiente e copie as fichas para minhas-respostas. Separe o volume de gabaritos até terminar sua tentativa. Os enunciados deste caderno são fictícios. No bloco de histórico e nas perguntas comportamentais, responda com experiências reais suas.
 
 Em cada bloco, registre o que você sabe, o que supõe e o que gostaria de perguntar. Sua tarefa é tornar seu raciocínio verificável. Há informações suficientes para começar e espaço para pedir esclarecimentos.
 
@@ -56,21 +56,11 @@ npm run lab:volume
 npm run lab:start
 ```
 
-Compare limit=1, limit=20 e limit=50. Anote resposta, consultas e condições da execução. Leia o código da listagem, proponha a menor mudança que atende à hipótese e diga como provar equivalência. Só depois de sua proposta rode npm run bench e compare o relatório com sua expectativa.
+Compare limit=1, limit=20 e limit=50. Anote resposta, consultas e condições da execução. Leia o código da listagem, proponha a menor mudança que atende à hipótese e diga como provar equivalência. Na modalidade documental, peça evidências ao entrevistador. Só depois de sua proposta rode npm run bench: ele revela a comparação com a solução, atualiza relatórios e é um comando de curadoria.
 
 Entrega: nota de investigação com três hipóteses, medidas para distingui-las, evidência encontrada, alteração proposta, riscos e verificação. Tempo do simulado: 20 minutos. Não é necessário implementar tudo nesse intervalo.
 
-### Pista 1: amplie a observação
-
-Compare número de consultas com o número de pedidos retornados. O comportamento se mantém quando você usa uma empresa com poucos pedidos? Uma consulta individual rápida pode participar de uma requisição lenta.
-
-### Pista 2: delimite o custo
-
-Siga o caminho entre buscar pedidos e anexar seus itens. Verifique quantidade de viagens ao banco, paralelismo e limite do pool. Distinguir quantidade de trabalho de duração é útil antes de aumentar recursos.
-
-### Pista 3: proponha e verifique
-
-Você consegue obter os itens de uma página em uma consulta? Como preservará a ordem dos pedidos, a ordenação dos itens, a empresa e o resultado vazio? Na extensão para sênior, examine o plano da consulta de pedidos e discuta um índice que combine filtro e ordenação.
+As [pistas graduais](02-pistas.md) ficam no apêndice, após os bancos de perguntas. Registre uma tentativa antes de abrir uma. No simulado, quem conduz entrega os cartões do seu roteiro conforme as perguntas feitas, sem inventar dados de produção.
 
 ## Bloco 3: arquitetura com alternativas
 
@@ -96,9 +86,11 @@ npm test
 npm run pr:diff
 ```
 
-Prepare a revisão por 30 minutos. Escreva comentários com condição de reprodução e impacto. Marque o que considera bloqueante, pergunta de esclarecimento ou sugestão opcional. Escolha um caso para transformar em teste. No simulado, use 20 minutos para explicar a revisão e discutir prioridades.
+Prepare a revisão por 30 minutos. Escreva comentários com condição de reprodução e impacto. Marque o que considera bloqueante, pergunta de esclarecimento ou sugestão opcional. Escolha um caso para transformar em teste. No simulado, use 20 minutos para explicar a revisão e discutir prioridades; não é preciso implementar todas as correções durante esse bloco.
 
-Depois da tentativa, consulte o gabarito e execute npm run verify:bugs. Você também pode executar um caso específico, por exemplo npm run verify:bugs -- B01. O diagnóstico não faz parte dos testes iniciais: ele verifica as condições que esses testes não cobrem.
+Depois da tentativa, consulte o gabarito. Para estudar os diagnósticos originais, você pode executar npm run verify:bugs ou um caso específico, como npm run verify:bugs -- B01. Esse comando não avalia sua correção: demonstra as condições que os testes iniciais não cobrem e atualiza o relatório da proposta original.
+
+Para corrigir por conta própria, use src/versions/candidato.ts e npm run test:candidate. Esse comando começa vermelho e executa os contratos contra sua cópia. A proposta original e a referência não são editadas. Uma solução com lock de linha na mesma transação ou atualização condicional é aceitável quando respeita as invariantes. Os testes apoiam a análise e não substituem a explicação do alcance da solução.
 
 Entrega: comentários priorizados, ao menos uma reprodução e uma decisão fundamentada sobre o PR. Encontrar um problema real que não esteja no gabarito também é válido se você demonstrar condição, consequência e limite.
 

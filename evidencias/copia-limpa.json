@@ -1,9 +1,9 @@
 {
-  "version": "1.0.0",
-  "capturedAt": "2026-10-31T01:16:14.408Z",
+  "version": "1.1.0",
+  "capturedAt": "2026-10-31T01:55:44.800Z",
   "node": "v24.22.1",
-  "filesVerified": 80,
-  "sourcesSha256": "25c5ae3ae314381643b6b95b795c1b71832921a2b03c232ab18dfb96e892d402",
+  "filesVerified": 93,
+  "sourcesSha256": "95936497442413727a75fec94ead994cae2278bee5bc696eac64e065ea5f6de5",
   "checks": [
     "npm ci",
     "npm run lab:setup",
@@ -14,6 +14,11 @@
     "npm run lint",
     "npm run docs:check"
   ],
+  "candidateWorkflow": {
+    "initialFailsAllFive": true,
+    "validSolutionPasses": true,
+    "originalRestored": true
+  },
   "smoke": {
     "transport": "HTTP TCP real em 127.0.0.1:3337",
     "list": 200,

@@ -1,6 +1,6 @@
 [
-  { "id": "01", "title": "Guia de preparação", "subtitle": "Experiência, raciocínio e colaboração", "file": "01-guia-preparacao.pdf", "sources": ["conteudo/01-guia.md"] },
-  { "id": "02", "title": "Caderno de exercícios", "subtitle": "Casos, pistas e 36 perguntas para praticar", "file": "02-caderno-exercicios.pdf", "sources": ["conteudo/02-exercicios.md", "conteudo/02-fundamentos.md", "conteudo/02-comportamento.md"] },
-  { "id": "03", "title": "Gabaritos e condução", "subtitle": "Evidências, alternativas e critérios de avaliação", "file": "03-gabaritos-conducao.pdf", "sources": ["conteudo/03-gabaritos.md", "conteudo/medicoes.md"] },
-  { "id": "04", "title": "Fichas de prática", "subtitle": "Registros, simulado e protocolo de piloto", "file": "04-fichas-pratica.pdf", "sources": ["conteudo/04-fichas.md", "conteudo/04-piloto.md"] }
+  {"id": "01", "title": "Guia de preparação", "subtitle": "Experiência, raciocínio e colaboração", "file": "01-guia-preparacao.pdf", "sources": ["conteudo/01-guia.md"]},
+  {"id": "02", "title": "Caderno de exercícios", "subtitle": "Casos, pistas e 36 perguntas para praticar", "file": "02-caderno-exercicios.pdf", "sources": ["conteudo/02-exercicios.md", "conteudo/02-fundamentos.md", "conteudo/02-comportamento.md", "conteudo/02-pistas.md"]},
+  {"id": "03", "title": "Gabaritos e condução", "subtitle": "Evidências, alternativas e critérios de avaliação", "file": "03-gabaritos-conducao.pdf", "sources": ["conteudo/03-conducao.md", "conteudo/03-gabaritos.md", "conteudo/03-calibracao.md", "conteudo/medicoes.md"]},
+  {"id": "04", "title": "Fichas de prática", "subtitle": "Registros, simulado e protocolo de piloto", "file": "04-fichas-pratica.pdf", "sources": ["conteudo/04-fichas.md", "conteudo/04-piloto.md"]}
 ]

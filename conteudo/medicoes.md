@@ -1,6 +1,6 @@
 # Medições capturadas
 
-Edição 1.0.0. Captura: 2026-10-31T01:02:56.504Z.
+Edição 1.1.0. Captura: 2026-10-31T01:46:26.114Z.
 
 Ambiente: darwin 25.2.0, arm64, Apple M5; Node v24.22.1; PostgreSQL 17.10; pool máximo 8.
 
@@ -8,8 +8,8 @@ Dados sintéticos: 20.000 pedidos e 20.000 itens; duas empresas; 8.000 pedidos c
 
 | Versão | Consultas por requisição | p50 | p95 |
 | --- | --- | --- | --- |
-| lento | 51 | 8 ms | 9.74 ms |
-| corrigido | 2 | 2.57 ms | 2.9 ms |
+| lento | 51 | 7 ms | 9.1 ms |
+| corrigido | 2 | 2.51 ms | 2.67 ms |
 
 As respostas completas foram comparadas a cada amostra e preservam conteúdo e ordem. O número de consultas caiu de 51 para 2. A versão lenta paraleliza as consultas de itens, limitada pelo pool; ainda executa uma consulta adicional por pedido.
 

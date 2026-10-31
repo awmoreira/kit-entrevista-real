@@ -1,9 +1,28 @@
 {
-  "version": "1.0.0",
-  "capturedAt": "2026-10-31T01:15:45.980Z",
+  "version": "1.1.0",
+  "capturedAt": "2026-10-31T01:54:27.056Z",
   "node": "v24.22.1",
   "postgres": "17.10",
-  "sourceSha256": "5be9c2a1b5f8e1cc7d562e303be1572cc2eb56eb24ebfc3b857e10c63ce8bb9a",
+  "sourceFiles": [
+    "package.json",
+    "package-lock.json",
+    "src/app.ts",
+    "src/db.ts",
+    "src/domain.ts",
+    "src/list-orders.ts",
+    "src/versions/base.ts",
+    "src/versions/proposta.ts",
+    "src/versions/referencia.ts",
+    "src/versions/candidato.ts",
+    "sql/schema.sql",
+    "sql/fixture.sql",
+    "sql/volume.sql",
+    "scripts/edition.mjs",
+    "tests/scenarios.ts",
+    "tests/stock-race.ts",
+    "scripts/verify-bugs.ts"
+  ],
+  "sourceSha256": "e8b5fe09fa7a484e5d15308d52b7297f4f917bf9c068e1e2523852baaaf82263",
   "results": [
     {
       "id": "B01",

@@ -5,6 +5,7 @@ import subprocess
 import sys
 import shutil
 from pathlib import Path
+from urllib.parse import urlparse, unquote
 
 import pdfplumber
 from pypdf import PdfReader
@@ -28,6 +29,19 @@ for volume in manifest['volumes']:
     assert '\ufffd' not in combined and '\u25a0' not in combined
     links = sum(len(page.get('/Annots', [])) for page in reader.pages)
     assert links > 0
+    edition_links = 0
+    for page in reader.pages:
+        for ref in page.get('/Annots', []):
+            action = ref.get_object().get('/A')
+            if not action: continue
+            uri = str(action.get_object().get('/URI', ''))
+            prefix = 'https://github.com/awmoreira/kit-entrevista-real/blob/'
+            if uri.startswith(prefix):
+                uri_path = unquote(urlparse(uri).path)
+                relative = uri_path.removeprefix(f'/awmoreira/kit-entrevista-real/blob/v{version}/')
+                assert relative != uri_path and not relative.startswith(('../', '/'))
+                assert (ROOT / relative).is_file(), f'Link inválido no PDF: {uri}'
+                edition_links += 1
     with pdfplumber.open(path) as document:
         for index, page in enumerate(document.pages):
             for char in page.chars:
@@ -36,7 +50,7 @@ for volume in manifest['volumes']:
                     assert 15 <= char['top'] <= char['bottom'] <= page.height - 14, f'{path.name} p{index+1}: texto fora da altura'
     result = {'file': path.name, 'pages': len(reader.pages), 'textCharacters': len(combined),
               'annotations': links, 'sha256': hashlib.sha256(path.read_bytes()).hexdigest(), 'sourceHashesVerified': True,
-              'selectableText': True, 'pageBoundsVerified': True, 'bookmarksPresent': True}
+              'selectableText': True, 'pageBoundsVerified': True, 'bookmarksPresent': True, 'editionLinksVerified': edition_links}
     results.append(result)
     print(f"{path.name}: {len(reader.pages)} páginas, texto e navegação verificados")
     if '--render' in sys.argv:

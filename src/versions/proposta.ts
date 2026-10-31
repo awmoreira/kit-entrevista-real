@@ -9,7 +9,7 @@ export const createOrder: CreateOrder = async (pool, tenant, input, _key, hooks 
   const product = rows[0];
   if (!product) throw new DomainError(404, 'product_not_found');
   if (product.available < input.quantity) throw new DomainError(409, 'insufficient_stock');
-  await hooks.afterRead?.();
+  await hooks.afterRead?.(pool);
   const unitPriceCents = input.priceCents ?? product.price_cents;
   const order: Order = { id: randomUUID(), tenantId: tenant, productId: input.productId,
     quantity: input.quantity, unitPriceCents, totalCents: unitPriceCents * input.quantity };

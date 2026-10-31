@@ -1,18 +1,23 @@
 import { afterAll, beforeEach, expect, test } from 'vitest';
-import { buildApp } from '../src/app.js';
+import { buildApp, type Version } from '../src/app.js';
 import { createPool, databaseUrl, resetSchema } from '../src/db.js';
 import { listOrders } from '../src/list-orders.js';
 import { scenarios, observeScenario } from './scenarios.js';
+import { stockRace } from './stock-race.js';
+import { withRowLock } from './fixtures/row-lock.js';
+const selected = process.env.KIT_REVIEW_VERSION ?? 'referencia';
+if (!['referencia', 'candidato'].includes(selected)) throw new Error('KIT_REVIEW_VERSION inválida');
+const version = selected as Version;
 const pool = createPool('kit_test');
 const headers = { 'x-test-identity': 'empresa-aurora', 'idempotency-key': 'referencia' };
 const body = { productId: 'prod-aurora', quantity: 1 };
 beforeEach(() => resetSchema(pool, 'kit_test'));
 afterAll(() => pool.end());
 for (const scenario of scenarios) test(`${scenario.id}: ${scenario.title}`, async () => {
-  expect(await observeScenario(scenario, pool, 'referencia')).toEqual(scenario.expected);
+  expect(await observeScenario(scenario, pool, version)).toEqual(scenario.expected);
 });
 test('mesma chave com conteúdo diferente recebe conflito sem novo débito', async () => {
-  const app = buildApp(pool, 'referencia');
+  const app = buildApp(pool, version);
   try {
     expect((await app.inject({ method: 'POST', url: '/orders', headers, payload: body })).statusCode).toBe(201);
     const conflict = await app.inject({ method: 'POST', url: '/orders', headers, payload: { ...body, quantity: 2 } });
@@ -22,7 +27,7 @@ test('mesma chave com conteúdo diferente recebe conflito sem novo débito', asy
   } finally { await app.close(); }
 });
 test('repetições concorrentes retornam um único pedido', async () => {
-  const app = buildApp(pool, 'referencia');
+  const app = buildApp(pool, version);
   try {
     const responses = await Promise.all(Array.from({ length: 6 }, () => app.inject({ method: 'POST', url: '/orders', headers, payload: body })));
     expect(responses.map(r => r.statusCode)).toEqual([201, 201, 201, 201, 201, 201]);
@@ -31,7 +36,7 @@ test('repetições concorrentes retornam um único pedido', async () => {
   } finally { await app.close(); }
 });
 test('a mesma chave é independente entre empresas', async () => {
-  const app = buildApp(pool, 'referencia');
+  const app = buildApp(pool, version);
   try {
     const aurora = await app.inject({ method: 'POST', url: '/orders', headers, payload: body });
     const brisa = await app.inject({ method: 'POST', url: '/orders', headers: { ...headers, 'x-test-identity': 'empresa-brisa' },
@@ -66,4 +71,24 @@ test('conexão recusa destino externo, banco diferente e parâmetros adicionais'
       expect(databaseUrl).toThrow('Use somente PostgreSQL local');
     }
   } finally { if (original === undefined) delete process.env.KIT_DATABASE_URL; else process.env.KIT_DATABASE_URL = original; }
+});
+test('o avaliador de concorrência aceita uma solução com lock de linha', async () => {
+  expect(await stockRace(pool, 'referencia', withRowLock)).toEqual({ accepted: 1, rejected: 1, available: 0, orders: 1 });
+});
+test('reproduz o falso negativo da barreira da edição 1.0 com uma solução válida', async () => {
+  await pool.query("UPDATE stock SET available=1 WHERE product_id='prod-aurora'");
+  let arrived = 0;
+  let release!: () => void;
+  let reject!: (error: Error) => void;
+  let timer: ReturnType<typeof setTimeout>;
+  const gate = new Promise<void>((resolve, fail) => { release = resolve; reject = fail; });
+  const afterRead = async () => {
+    arrived++;
+    if (arrived === 1) timer = setTimeout(() => reject(new Error('old_barrier_timeout')), 300);
+    if (arrived === 2) { clearTimeout(timer); release(); }
+    await gate;
+  };
+  const results = await Promise.allSettled(['old-a', 'old-b'].map(key => withRowLock(pool, 'aurora', body, key, { afterRead })));
+  expect(results.every(r => r.status === 'rejected' && r.reason instanceof Error && r.reason.message === 'old_barrier_timeout')).toBe(true);
+  expect((await pool.query("SELECT available FROM stock WHERE product_id='prod-aurora'")).rows[0].available).toBe(1);
 });

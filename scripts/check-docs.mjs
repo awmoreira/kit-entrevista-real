@@ -2,6 +2,7 @@ import { readFile, readdir, stat } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { createHash } from 'node:crypto';
 import { strictEqual, deepStrictEqual, ok } from 'node:assert';
+import { fingerprint, proofFiles, benchmarkFiles } from './edition.mjs';
 const read = file => readFile(file, 'utf8');
 const version = JSON.parse(await read('package.json')).version;
 async function markdownFiles(dir) {
@@ -36,11 +37,14 @@ for (const [file, prefix, count] of [['conteudo/02-fundamentos.md', 'T', 24], ['
 const proof = JSON.parse(await read('evidencias/provas-bugs.json'));
 strictEqual(proof.version, version); strictEqual(proof.results.length, 5);
 for (const row of proof.results) { strictEqual(row.regressionFailed, true); deepStrictEqual(row.reference, row.expected); }
-const hash = createHash('sha256');
-for (const file of ['src/versions/proposta.ts', 'src/versions/referencia.ts', 'tests/scenarios.ts']) hash.update(await readFile(file));
-strictEqual(hash.digest('hex'), proof.sourceSha256, 'Atualize verify:bugs após alterar o exercício');
+deepStrictEqual(proof.sourceFiles, proofFiles);
+strictEqual(await fingerprint(proofFiles), proof.sourceSha256, 'Atualize verify:bugs após alterar o exercício');
 const bench = JSON.parse(await read('evidencias/benchmark.json'));
 strictEqual(bench.version, version);
+deepStrictEqual(bench.sourceFiles, benchmarkFiles);
+strictEqual(await fingerprint(benchmarkFiles), bench.sourceSha256, 'Atualize bench após alterar laboratório ou metodologia');
+strictEqual(createHash('sha256').update(await readFile('evidencias/planos.json')).digest('hex'), bench.plansSha256, 'Planos divergentes do benchmark');
+deepStrictEqual(bench.investigationCards.map(c => [c.requestedLimit, c.returnedOrders, c.queries]), [[1,1,2],[20,20,21],[50,50,51]]);
 deepStrictEqual(bench.observations.map(r => r.queries), [51, 2]);
 strictEqual(bench.observations[0].responseSha256, bench.observations[1].responseSha256);
 const api = JSON.parse(await read('docs/openapi.json'));

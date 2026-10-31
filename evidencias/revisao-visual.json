@@ -1,19 +1,20 @@
 {
-  "version": "1.0.0",
-  "reviewedAt": "2026-10-31T01:13:42.300364+00:00",
+  "version": "1.1.0",
+  "reviewedAt": "2026-10-31T01:54:20.516Z",
   "reviewer": "Codex",
   "approved": true,
-  "pagesInspected": 47,
-  "sourcesSha256": "0a039080b22b4fca0e9715ecf61d931bd12e417991fbcbacb076c5ab25204a5e",
-  "method": "Inspeção de todas as páginas renderizadas em folhas de contato; conferência em resolução de leitura de texto, comandos, tabelas e fichas.",
+  "pagesInspected": 56,
+  "sourcesSha256": "05c9791d3239b04908977994c662673a6e829ae5d737298e22aeb55f866a4075",
+  "method": "Inspeção das páginas renderizadas em folhas de contato, com conferência em resolução de leitura de condução, cartões, calibração e fichas.",
   "contactSheets": [
     "docs/revisao-visual/01-contact-1.jpg",
     "docs/revisao-visual/02-contact-1.jpg",
     "docs/revisao-visual/02-contact-2.jpg",
     "docs/revisao-visual/03-contact-1.jpg",
     "docs/revisao-visual/03-contact-2.jpg",
+    "docs/revisao-visual/03-contact-3.jpg",
     "docs/revisao-visual/04-contact-1.jpg",
     "docs/revisao-visual/04-contact-2.jpg"
   ],
-  "findings": "Sem cortes, sobreposição ou glifos inválidos observados. Fichas começam em páginas próprias; comandos longos preservam argumentos e continuação de shell."
+  "findings": "Sem cortes, sobreposição ou glifos inválidos observados. Tabelas curtas permanecem juntas. Links dos novos capítulos apontam para arquivos da tag desta edição."
 }

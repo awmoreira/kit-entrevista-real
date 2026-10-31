@@ -2,6 +2,8 @@
 
 Cada pergunta tem intenção, aprofundamento, sinais observáveis e expectativas para os dois níveis. As expectativas são guias de prática, não respostas obrigatórias. Distribuição: quatro perguntas em cada uma das seis áreas, totalizando 24.
 
+Este banco é material de estudo e já apresenta sinais esperados. Para uma primeira tentativa sem ajuda, responda à pergunta antes de ler intenção e sinais. O entrevistador usa as perguntas centrais do roteiro; o simulado não percorre todo este banco.
+
 ## HTTP e segurança
 
 ### T01. O cliente recebeu timeout ao criar um pedido. Ele pode repetir?
@@ -82,7 +84,7 @@ Cada pergunta tem intenção, aprofundamento, sinais observáveis e expectativas
 
 ### T18. Como testar concorrência sem depender de um sleep?
 
-**Intenção:** tornar a falha reproduzível. **Aprofundamento:** onde sincronizar as duas operações e quais resultados observar? **Sinais:** barreira, conexões reais, estado final e timeout de segurança. **Pleno:** controla o encontro entre leitura e escrita. **Sênior:** verifica se a própria sincronização não bloqueia a solução correta e distingue interleaving forçado de teste de carga.
+**Intenção:** tornar a falha reproduzível sem impor uma implementação. **Aprofundamento:** onde coordenar as operações e quais resultados observar? **Sinais:** conexões reais, espera de lock observável, estado final e prazo de segurança. **Pleno:** controla a disputa e verifica a invariante. **Sênior:** demonstra que o agendamento aceita exclusão por lock e distingue teste de interleaving de teste de carga; uma barreira dentro da região protegida pode rejeitar a solução correta.
 
 ### T19. Quando um mock de banco deixa de ser evidência suficiente?
 

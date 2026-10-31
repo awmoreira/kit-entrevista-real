@@ -2,11 +2,13 @@
 
 ## Objetivo e estado
 
-Edição 1.0.0. Este protocolo prepara uma avaliação de uso e aprendizado; não descreve resultados já obtidos. O piloto com pessoas reais está pendente. As provas de software e as medições do laboratório são verificações técnicas separadas.
+Edição 1.1.0. Este protocolo prepara uma avaliação de uso e aprendizado; não descreve resultados já obtidos. O piloto com pessoas reais está pendente. As provas de software e as medições do laboratório são verificações técnicas separadas.
 
 Convide cinco voluntários que conheçam APIs, SQL e testes, incluindo pessoas que se identifiquem com os escopos pleno e sênior. O responsável pelo piloto faz os convites e combina participação e compartilhamento de registros. O kit não envia mensagens nem coleta dados de participantes automaticamente.
 
 Use identificadores P01 a P05 nos registros compartilhados. Explique finalidade, tarefas e possibilidade de desistir. Combine o que será registrado e quem pode consultar; gravação é opcional e depende de acordo. Mantenha relatos profissionais e respostas pessoais fora do repositório público.
+
+O roteiro comum e os exemplos de calibração devem ser lidos por quem observa, não por quem fará a primeira tentativa. Registre exposição prévia a soluções, nível, modalidade, ferramentas, pausas e ajuda. Se a pessoa já conhece um caso, use a variação e identifique a troca; não apresente uma repetição decorada como transferência.
 
 ## Hipóteses e medidas
 
@@ -17,6 +19,14 @@ Use identificadores P01 a P05 nos registros compartilhados. Explique finalidade,
 | Feedback ajuda a escolher a próxima prática | Review inicial e autoavaliação | Comparar com evidências do observador; aplicar outro cenário de repetição e registrar o que mudou |
 
 As metas abaixo são critérios exploratórios escolhidos para esta rodada, não parâmetros de eficácia já demonstrada. Cinco participantes permitem encontrar problemas de uso; não sustentam inferência estatística sobre aprovação em entrevistas.
+
+## Critérios definidos antes da rodada
+
+Para história, observe quatro elementos: contribuição individual, decisão com alternativa, resultado com evidência ou limite e reflexão aplicada. Para investigação: sintoma delimitado, mais de uma hipótese, medida que distingue hipóteses e verificação da mudança. Para review: condição de reprodução, efeito no contrato, verificação proposta e comentário respeitoso com prioridade.
+
+Marque cada elemento como explícito, ausente numa oportunidade adequada ou não observado por falta de oportunidade. Guarde o trecho que sustenta a marcação. Compare os mesmos elementos antes e depois e use a variação para buscar transferência. Não crie um total de eficácia a partir dessas marcações.
+
+As condições precisam ser equivalentes para uma comparação útil. Se a ajuda, a modalidade ou o nível mudar, descreva a mudança junto com o resultado. Uma resposta hipotética não deve ser comparada como experiência real. O piloto procura problemas de uso e evidências de aprendizagem; sem grupo de comparação, não atribui causalidade nem taxa de aprovação ao kit.
 
 ## Sequência por participante
 
@@ -53,7 +63,7 @@ Escolha um episódio diferente do ensaiado. Peça contexto, ação, resultado e 
 | P04 | a preencher | a preencher | a preencher | a preencher | a preencher |
 | P05 | a preencher | a preencher | a preencher | a preencher | a preencher |
 
-Meta exploratória de instalação: quatro de cinco participantes chegam ao primeiro teste verde em até 15 minutos após terem Node e Docker funcionais. Registre também bloqueios anteriores, sem atribuí-los ao conteúdo. Meta de compreensão: quatro de cinco encontram o exercício e o gabarito corretos sem ajuda e explicam o significado de NO. Meta de transferência: em cada necessidade, pelo menos três participantes mostram uma evidência nova em outro caso.
+Meta exploratória de instalação: quatro de cinco participantes chegam ao primeiro teste verde em até 15 minutos após terem Node e Docker funcionais. Registre também bloqueios anteriores, sem atribuí-los ao conteúdo. Meta de compreensão: quatro de cinco encontram exercício e gabarito sem ajuda, distinguem teste inicial de test:candidate e explicam NO. Meta de transferência: em cada necessidade, pelo menos três participantes demonstram em outro caso um elemento definido acima que estava ausente na tentativa inicial, sob condições comparáveis. Relate participantes sem oportunidade comparável separadamente, com o denominador efetivamente observado.
 
 Peça a dois observadores que avaliem independentemente uma mesma tentativa autorizada. Uma diferença de mais de um nível em uma competência exige rever a âncora e os exemplos. Discuta a evidência antes de buscar consenso. Não transforme a concordância de duas pessoas em validação psicométrica.
 

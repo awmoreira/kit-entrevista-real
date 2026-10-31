@@ -2,6 +2,8 @@
 
 Use episódios reais e aprofundamentos neutros. Os exemplos de conduta são sinais observáveis, não diagnóstico de personalidade. Há 12 perguntas; escolha as relevantes para a sessão.
 
+Para estudo, responda antes de ler os sinais. No simulado, o roteiro comum seleciona C01 e C03 e uma situação; não exige as doze perguntas. Se não viveu um episódio, declare isso e busque um equivalente. Respostas hipotéticas precisam ser identificadas e não comprovam histórico profissional.
+
 ### C01. Conte uma discordância técnica que você precisou resolver.
 
 **Intenção:** compreender como você trabalha com perspectivas diferentes. **Aprofundamento:** o que a outra pessoa temia e como a decisão foi tomada? **Sinais:** escuta, critérios, alternativas e compromisso posterior. **Pleno:** expõe evidências e participa de uma solução. **Sênior:** torna critérios comuns, envolve quem decide e trata consequências entre equipes, sem transformar discordância em disputa de autoridade.

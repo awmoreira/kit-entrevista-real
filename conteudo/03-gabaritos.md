@@ -2,7 +2,7 @@
 
 ## Como consultar este volume
 
-Edição 1.0.0. Consulte após registrar uma tentativa. Este volume contém as soluções dos exercícios e o roteiro para quem acompanha o treino. Uma referência correta pode ser diferente da sua solução; compare invariantes, evidências e consequências. Os exemplos são fictícios.
+Edição 1.1.0. Consulte após registrar uma tentativa. Este volume contém as soluções dos exercícios e o roteiro para quem acompanha o treino. Uma referência correta pode ser diferente da sua solução; compare invariantes, evidências e consequências. Os exemplos são fictícios.
 
 A aplicação é deliberadamente pequena. As garantias aqui discutidas se referem ao contrato do caderno e ao banco local. A evolução de arquitetura considera outros limites, sem atribuir ao laboratório funcionalidades que ele não implementa.
 
@@ -104,7 +104,7 @@ O comando npm run verify:bugs executa cada cenário isoladamente em PostgreSQL r
 
 ### B03. Corrida pelo estoque
 
-**Condição:** estoque em 1 e duas compras de uma unidade com chaves diferentes. **Reprodução:** npm run verify:bugs -- B03. Uma barreira permite que ambas atinjam o ponto entre leitura e escrita; não usamos sleep para tentar provocar a corrida.
+**Condição:** estoque em 1 e duas compras de uma unidade com chaves diferentes. **Reprodução:** npm run verify:bugs -- B03. Uma transação de controle segura a linha até duas operações estarem esperando um lock no PostgreSQL. Depois libera a disputa. O teste observa a espera no banco com prazo limitado; não usa um atraso arbitrário para provocar a corrida.
 
 **Proposta:** duas compras aceitas, dois pedidos e estoque -1. **Contrato:** uma compra aceita, uma recusada e estoque 0.
 
@@ -113,6 +113,8 @@ O comando npm run verify:bugs executa cada cenário isoladamente em PostgreSQL r
 **Comentário fictício:** "Bloqueante: duas compras podem ler a última unidade antes do débito e ambas concluir. A reprodução sincronizada deixa estoque -1. Podemos reservar com uma atualização condicional e verificar que só uma transação obtém a unidade?"
 
 **Aprofundamento sênior:** um CHECK de estoque não negativo é uma defesa útil no banco. O schema didático o omite para tornar o estado incorreto visível; a referência protege a reserva. Em um modelo com vários produtos, discuta ordem de locks e rollback de reservas parciais.
+
+A edição 1.0 sincronizava callbacks depois da leitura. Isso rejeitava indevidamente uma implementação que adquirisse lock antes do callback: a segunda leitura ficava corretamente bloqueada. A edição 1.1 observa a disputa no banco e testa também uma alternativa com SELECT FOR UPDATE. O teste deve validar a invariante sem obrigar a solução a executar leituras simultâneas.
 
 ### B04. Persistência parcial
 
@@ -199,3 +201,9 @@ Avalie cada competência uma vez, usando as evidências dos vários blocos. Não
 Exemplo: técnico 3, 3, 2, 3, 4 produz média 3,0; colaboração 3, 3, 3, 2, 4 também 3,0. O resumo é 3,0 e o plano pode priorizar arquitetura e responsabilidade. Se arquitetura for NO, registre o eixo técnico como incompleto e planeje nova observação. Não substitua NO por zero nem invente evidência.
 
 A convenção 50/50 não é um instrumento validado de seleção. Mantenha os dois eixos, as evidências e o plano de prática visíveis. O estado da validação técnica e do piloto é informado na release.
+
+## Calibração e prioridades do feedback
+
+Use o roteiro comum e os pares de respostas deste volume antes de conduzir. Eles exemplificam cada uma das dez competências e distinguem nota insuficiente de falta de oportunidade. Uma fala pode ter conteúdo tecnicamente correto e tratamento desrespeitoso, ou tom colaborativo com diagnóstico errado. Justifique cada eixo separadamente.
+
+Registre o risco de uma invariante violada mesmo que a média seja alta. A prioridade do plano de prática deve considerar o efeito demonstrado e a lacuna de raciocínio, além da nota. Perguntar por um CHECK adicional é uma sugestão de defesa; preferir outro framework não demonstra um defeito; pedir um broker sem relacioná-lo ao requisito não melhora uma arquitetura por si só.

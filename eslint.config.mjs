@@ -4,5 +4,5 @@ export default ts.config(
   { ignores: ['node_modules/**', 'dist/**', 'tmp/**'] },
   js.configs.recommended,
   ...ts.configs.recommended,
-  { languageOptions: { globals: { process: 'readonly', console: 'readonly', Buffer: 'readonly', URL: 'readonly', fetch: 'readonly', setTimeout: 'readonly', clearTimeout: 'readonly' } } },
+  { languageOptions: { globals: { process: 'readonly', console: 'readonly', Buffer: 'readonly', URL: 'readonly', fetch: 'readonly', AbortSignal: 'readonly', setTimeout: 'readonly', clearTimeout: 'readonly' } } },
 );

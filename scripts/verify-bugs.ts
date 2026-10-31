@@ -1,8 +1,8 @@
 import { deepStrictEqual, AssertionError } from 'node:assert';
-import { mkdir, readFile, writeFile } from 'node:fs/promises';
-import { createHash } from 'node:crypto';
+import { mkdir, writeFile } from 'node:fs/promises';
 import { createPool } from '../src/db.js';
 import { scenarios, observeScenario } from '../tests/scenarios.js';
+import { version, proofFiles, fingerprint } from './edition.mjs';
 const selected = process.argv[2];
 if (selected && !scenarios.some(s => s.id === selected)) throw new Error('Identificador: B01, B02, B03, B04 ou B05');
 const pool = createPool('kit_test');
@@ -21,10 +21,9 @@ try {
     results.push({ id: scenario.id, title: scenario.title, expected: scenario.expected, proposed, reference, regressionFailed });
     console.log(`${scenario.id}: falha específica na proposta; passa na referência.`);
   }
-  const sourceHash = createHash('sha256');
-  for (const file of ['src/versions/proposta.ts', 'src/versions/referencia.ts', 'tests/scenarios.ts']) sourceHash.update(await readFile(file));
-  const report = { version: '1.0.0', capturedAt: new Date().toISOString(), node: process.version,
-    postgres: (await pool.query('SHOW server_version')).rows[0].server_version, sourceSha256: sourceHash.digest('hex'), results };
+  const report = { version, capturedAt: new Date().toISOString(), node: process.version,
+    postgres: (await pool.query('SHOW server_version')).rows[0].server_version,
+    sourceFiles: proofFiles, sourceSha256: await fingerprint(proofFiles), results };
   await mkdir(selected ? 'tmp' : 'evidencias', { recursive: true });
   await writeFile(selected ? `tmp/prova-${selected}.json` : 'evidencias/provas-bugs.json', JSON.stringify(report, null, 2) + '\n');
 } finally { await pool.end(); }

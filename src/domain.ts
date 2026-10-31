@@ -8,7 +8,7 @@ export interface Order {
   unitPriceCents: number; totalCents: number;
 }
 export interface Hooks {
-  afterRead?: () => Promise<void>;
+  afterRead?: (db: Pool | PoolClient) => Promise<void>;
   beforeInsert?: (db: Pool | PoolClient) => Promise<void>;
 }
 export type CreateOrder = (pool: Pool, tenant: string, input: OrderInput, key: string, hooks?: Hooks) => Promise<Order>;

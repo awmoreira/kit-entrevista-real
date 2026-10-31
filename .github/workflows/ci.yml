@@ -7,6 +7,7 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     services:
       postgres:
         image: postgres:17.10-alpine@sha256:742f40ea20b9ff2ff31db5458d127452988a2164df9e17441e191f3b72252193
@@ -33,3 +34,4 @@ jobs:
       - run: python -m pip install -r requirements-docs.txt
       - run: npm run release:check
       - run: npm run release:pack
+      - run: npm run release:verify-archive -- --database-ready --no-record

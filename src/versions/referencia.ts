@@ -18,7 +18,7 @@ export const createOrder: CreateOrder = async (pool, tenant, input, key, hooks =
     const { rows } = await client.query<{price_cents: number}>(
       'SELECT price_cents FROM products WHERE id=$1 AND tenant_id=$2', [input.productId, tenant]);
     if (!rows[0]) throw new DomainError(404, 'product_not_found');
-    await hooks.afterRead?.();
+    await hooks.afterRead?.(client);
     const reserved = await client.query(
       'UPDATE stock SET available=available-$1 WHERE product_id=$2 AND available >= $1 RETURNING available',
       [input.quantity, input.productId]);

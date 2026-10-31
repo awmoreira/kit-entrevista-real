@@ -1,6 +1,12 @@
-# Kit Entrevista Real 1.0.0
+# Kit Entrevista Real 1.1.0
 
 Kit gratuito em português para praticar entrevistas de backend pleno e sênior. Autoria: Allan Winckler.
+
+## Revisão crítica desta edição
+
+A edição 1.1.0 corrige dez lacunas documentadas na revisão do kit. Acrescenta teste da solução do candidato, um avaliador de concorrência compatível com lock de linha, roteiro comum de entrevista, cartões e exemplos para calibrar as dez competências. Esclarece NO, ajuda, modalidade e expectativas de pleno/sênior. A release 1.0.0 foi preservada.
+
+O percurso do candidato é validado em pacote extraído: versão inicial vermelha, solução válida verde, arquivo original restaurado. A integração contínua verifica esse fluxo e a API por HTTP real. Os relatórios têm fingerprints das fontes e os ativos ficam separados por edição.
 
 ## Conteúdo
 
@@ -9,6 +15,8 @@ Kit gratuito em português para praticar entrevistas de backend pleno e sênior.
 - Cinco bugs com reprodução específica falhando na proposta e passando na referência.
 - Investigação de N+1 com respostas equivalentes e redução de 51 para 2 consultas por página de 50 pedidos.
 - Arquitetura com duas alternativas, 24 perguntas de fundamentos, 12 comportamentais e simulado de 90 minutos.
+
+Consulte no repositório docs/revisao-critica-1.1.0.md para achados, correções, evidências e limites da revisão.
 
 ## Baixar e verificar
 

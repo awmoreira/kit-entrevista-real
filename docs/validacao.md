@@ -1,16 +1,17 @@
-# Registro de validação da edição 1.0.0
+# Registro de validação da edição 1.1.0
 
 Autoria: Allan Winckler. Casos fictícios, materiais em português. O piloto com cinco candidatos reais está **pendente**. As rubricas são autorais e ainda precisam de calibração pedagógica.
 
 ## Evidências técnicas
 
 - Testes iniciais: sete cenários de caminho normal e validação na proposta.
-- Referência: onze testes de contrato, concorrência, repetição, escopo e proteção da conexão local.
+- Referência: treze testes de contrato, concorrência, repetição, escopo, proteção da conexão local e correção do avaliador.
 - Cinco defeitos: o relatório [provas-bugs.json](../evidencias/provas-bugs.json) registra a falha específica na proposta e a mesma comparação passando na referência. O código de diagnóstico confere os resultados defeituosos previstos antes de aceitar uma prova.
 - Desempenho: [benchmark.json](../evidencias/benchmark.json) e [planos.json](../evidencias/planos.json) registram ambiente, dados, metodologia e planos. Foram comparadas as respostas completas: 51 consultas na versão lenta e duas na corrigida, para uma página de 50 pedidos.
-- PDFs: o relatório automático [pdf-verificacao.json](../evidencias/pdf-verificacao.json) registra fonte, texto, navegação e limites de página. A [revisão visual](../evidencias/revisao-visual.json) cobre as 47 páginas; as folhas de contato estão em docs/revisao-visual. A reprodução em cópia limpa tem registro separado.
+- PDFs: o relatório automático [pdf-verificacao.json](../evidencias/pdf-verificacao.json) registra fontes, texto, navegação, links da edição e limites de página. A [revisão visual](../evidencias/revisao-visual.json) lista as páginas inspecionadas; as folhas de contato estão em docs/revisao-visual.
+- Percurso do candidato: a [cópia limpa](../evidencias/copia-limpa.json) confere a solução inicial vermelha, uma solução válida verde e a restauração do arquivo de prática. A CI executa esse percurso e chamadas HTTP reais num pacote extraído.
 
-O arquivo checks.json em evidencias registra a última execução completa dos oito checks da edição. Nenhuma falha de inicialização é aceita como prova de bug. A barreira da corrida não usa atraso arbitrário; a falha intermediária verifica SQLSTATE 22012.
+O arquivo checks.json em evidencias registra a última execução completa dos oito checks da edição. Nenhuma falha de inicialização é aceita como prova de bug. A corrida observa duas operações esperando o lock no PostgreSQL antes de liberá-las; aceita atualização condicional e SELECT FOR UPDATE. A falha intermediária verifica SQLSTATE 22012. Provas e medições incluem fingerprints das fontes relevantes.
 
 ## Alcance
 

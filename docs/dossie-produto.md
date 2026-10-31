@@ -1,6 +1,6 @@
 # Dossiê do produto
 
-Edição 1.0.0 | Autoria: Allan Winckler | Idioma: pt-BR
+Edição 1.1.0 | Autoria: Allan Winckler | Idioma: pt-BR
 
 ## A promessa analisada
 

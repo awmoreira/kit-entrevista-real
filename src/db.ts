@@ -1,5 +1,6 @@
 import pg from 'pg';
 import { readFile } from 'node:fs/promises';
+import { randomUUID } from 'node:crypto';
 
 export type Schema = 'kit_lab' | 'kit_test' | 'kit_bench';
 export function databaseUrl(): string {
@@ -14,6 +15,7 @@ export function databaseUrl(): string {
 export function createPool(schema: Schema = 'kit_lab'): pg.Pool {
   if (!['kit_lab', 'kit_test', 'kit_bench'].includes(schema)) throw new Error('Schema do laboratório inválido');
   return new pg.Pool({ connectionString: databaseUrl(), max: 8, connectionTimeoutMillis: 5000,
+    application_name: `${schema}:${randomUUID()}`,
     options: `-c search_path=${schema},public -c statement_timeout=10000` });
 }
 export async function resetSchema(pool: pg.Pool, schema: Schema): Promise<void> {

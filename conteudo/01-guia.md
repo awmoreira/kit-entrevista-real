@@ -10,9 +10,9 @@ O público é de backend pleno e sênior. Você precisa compreender funções as
 
 ## Como usar os quatro volumes
 
-Este guia organiza o estudo. O caderno traz enunciados e perguntas. O volume de gabaritos explica caminhos, critérios e defeitos. As fichas guardam suas evidências e seu próximo passo. Todos os volumes estão disponíveis em Markdown e PDF na mesma edição 1.0.0.
+Este guia organiza o estudo. O caderno traz enunciados e perguntas. O volume de gabaritos explica caminhos, critérios e defeitos. As fichas guardam suas evidências e seu próximo passo. Todos os volumes estão disponíveis em Markdown e PDF na mesma edição 1.1.0.
 
-No estudo guiado, tente primeiro, registre sua decisão e use uma pista por vez. Depois compare com o gabarito e identifique o que mudou no seu entendimento. No simulado, combine a consulta permitida antes de começar, registre as respostas e abra o gabarito ao terminar cada sessão completa. Quem acompanha o treino pode usar o roteiro do facilitador.
+No estudo guiado, tente primeiro, registre sua decisão e use uma pista por vez, no apêndice do caderno. Depois compare com o gabarito e identifique o que mudou no seu entendimento. No simulado, combine a consulta permitida antes de começar e abra o gabarito depois dos cinco blocos, para uma solução não antecipar as demais. Quem acompanha usa o [roteiro comum](03-conducao.md) do volume de gabaritos, com perguntas, cartões e oportunidades para cada competência.
 
 O gabarito é público. Sua separação é pedagógica: serve para preservar uma tentativa útil. Você pode estudar sozinho, explicar em voz alta para um colega ou gravar um áudio local para ouvir depois. Não é preciso enviar respostas ou cadastrar uma conta.
 
@@ -63,6 +63,10 @@ Reserve 60 a 75 minutos. Leia o contexto do PR, seu diff e os testes iniciais. U
 
 Saída: comentários priorizados e ao menos uma reprodução. Critério: um autor consegue entender o risco e agir a partir do comentário. As sugestões de estilo ficam identificadas como opcionais.
 
+Para praticar correções após o review, edite somente src/versions/candidato.ts. Essa cópia começa com os mesmos defeitos da proposta. Execute npm run test:candidate: a primeira tentativa deve ficar vermelha; o comando avalia sua implementação, não a referência pronta. Depois de corrigir, repita até os contratos relevantes passarem e examine o alcance dessa evidência. npm run lab:start -- candidato permite testar sua versão por HTTP. O exercício original e o gabarito ficam preservados.
+
+Não use npm run verify:bugs para avaliar sua correção: ele verifica os defeitos deliberados da proposta original. Provas e medições podem ser estudadas após a tentativa e também são ferramentas de curadoria; elas reescrevem relatórios da versão original. A reconstrução e a publicação pertencem ao percurso de manutenção. Implementar as correções é prática adicional; os 20 minutos de review no simulado são para discussão e reprodução, não uma obrigação de corrigir cinco defeitos ao vivo.
+
 ### Sessão 5: praticar colaboração sob tensão
 
 Reserve 45 a 60 minutos. Escolha quatro perguntas comportamentais do caderno, responda com episódios reais e peça aprofundamentos. Explique o que você ouviu, como agiu e qual foi o efeito. Reescreva uma resposta que atribui todos os problemas a terceiros. Preserve o desacordo técnico, tornando visível sua tentativa de resolver a situação.
@@ -84,6 +88,10 @@ Uma história útil contém contexto suficiente para entender o problema, sua re
 
 Não é necessário ter liderado um grande incidente ou trabalhado em uma empresa conhecida. Um problema local bem explicado mostra raciocínio. Quando não tiver números confiáveis, descreva evidências qualitativas e seus limites. Separe contribuição individual de resultado da equipe. Uma estimativa deve aparecer como estimativa.
 
+O mesmo episódio pode sustentar mais de um dos seis recortes, com aprofundamentos diferentes. O mapa organiza sua experiência; não exige seis empresas, projetos ou incidentes distintos.
+
+Se não tiver vivido uma situação, diga isso. Procure um episódio equivalente, inclusive pessoal ou acadêmico. Uma resposta hipotética pode mostrar raciocínio, mas deve ser identificada e não conta como experiência passada. Quem acompanha precisa oferecer uma oportunidade pertinente antes de atribuir uma nota.
+
 ### Exemplo fictício: resposta pouco específica
 
 "A API era lenta. Eu coloquei cache e melhorou muito. O time gostou."
@@ -92,7 +100,7 @@ Faltam o efeito no usuário, a investigação, as alternativas, o papel da pesso
 
 ### Exemplo fictício: resposta com evidências
 
-"Eu mantinha a listagem de pedidos de um SaaS. Sob um conjunto fixo de 50 pedidos, cada resposta disparava 51 consultas. Meu papel foi reproduzir o comportamento e propor a leitura de itens em lote. Comparei as respostas completas e contei duas consultas após a mudança. Os tempos locais também caíram, mas não tratamos isso como prova de capacidade em produção. Adiamos cache porque o custo principal estava nas viagens ao banco. Hoje eu acrescentaria uma verificação de contagem de consultas à integração para perceber a regressão mais cedo."
+"Eu mantinha uma importação de catálogo. Alguns arquivos informavam comprimentos em centímetros e outros em milímetros. Meu papel foi localizar a premissa e propor uma unidade explícita no contrato. Comparei doze arquivos de teste com a conversão esperada e acrescentei rejeição para unidade desconhecida. A equipe cuidou da comunicação da mudança aos clientes. Não medimos redução de chamados por tempo suficiente para atribuí-la à alteração. Hoje eu registraria a origem e a versão do arquivo na mensagem de erro para facilitar o diagnóstico."
 
 O exemplo delimita a evidência e reconhece o próximo passo. A precisão vale mais que a grandiosidade do resultado.
 
@@ -124,7 +132,9 @@ O eixo técnico observa investigação, correção de dados, arquitetura, confia
 
 Use 1 quando a evidência mostrar uma abordagem que ainda deixa o problema central sem tratamento; 2 para uma abordagem parcialmente consistente; 3 para uma abordagem consistente e verificada; 4 para uma abordagem consistente que também antecipa consequências relevantes. As âncoras específicas estão no gabarito.
 
-NO significa que faltou uma oportunidade ou observação. Não equivale a zero. Calcule a média de um eixo somente quando suas cinco competências tiverem evidência. Se ambos estiverem completos, o resumo 50/50 é a média das duas médias. Preserve sempre os resultados separados. Nenhum total define aprovação.
+NO significa falta de oportunidade suficiente, como um bloco interrompido ou uma pergunta inadequada. Não equivale a zero e não substitui uma lacuna técnica efetivamente observada. Dizer "não sei" após uma pergunta relevante pode ser evidência técnica insuficiente; ser honesto não reduz a colaboração. Calcule a média de um eixo somente quando suas cinco competências tiverem evidência. Se ambos estiverem completos, o resumo 50/50 é a média das duas médias. Preserve os dois eixos e qualquer risco central demonstrado. Nenhum total define aprovação.
+
+Combine o nível antes da sessão: as notas descrevem qualidade no escopo pleno ou sênior escolhido, e 4 não significa automaticamente sênior. Use os [exemplos de calibração](03-calibracao.md) para discutir uma nota. Registre modalidade, ferramentas e ajuda; mudanças nessas condições limitam a comparação entre rodadas.
 
 ## Plano de melhoria
 

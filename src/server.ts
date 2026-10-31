@@ -1,7 +1,7 @@
 import { buildApp, type Version } from './app.js';
 import { createPool } from './db.js';
 const version = (process.argv[2] ?? 'proposta') as Version;
-if (!['base', 'proposta', 'referencia'].includes(version)) throw new Error('Versão: base | proposta | referencia');
+if (!['base', 'proposta', 'referencia', 'candidato'].includes(version)) throw new Error('Versão: base | proposta | referencia | candidato');
 const pool = createPool();
 const app = buildApp(pool, version);
 for (const signal of ['SIGINT', 'SIGTERM']) process.once(signal, () => { void app.close().then(() => pool.end()); });

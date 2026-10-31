@@ -5,6 +5,8 @@ import json
 import re
 import shlex
 import textwrap
+import posixpath
+from urllib.parse import quote, unquote
 from pathlib import Path
 
 import reportlab
@@ -17,7 +19,7 @@ from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.platypus import (
     BaseDocTemplate, Frame, LongTable, PageBreak, PageTemplate, Paragraph,
-    Spacer, TableStyle, XPreformatted,
+    Spacer, TableStyle, XPreformatted, KeepTogether,
 )
 from reportlab.platypus.tableofcontents import TableOfContents
 
@@ -55,7 +57,7 @@ CODE = ParagraphStyle('Code', fontName='Courier', fontSize=8.2, leading=11.2, te
                       backColor=LIGHT, borderPadding=8, spaceBefore=7, spaceAfter=13)
 
 
-def inline(children):
+def inline(children, source):
     output = []
     for token in children or []:
         kind = token.type
@@ -71,8 +73,11 @@ def inline(children):
         elif kind == 'em_close': output.append('</i>')
         elif kind == 'link_open':
             href = token.attrGet('href') or ''
-            if not href.startswith(('https://', 'http://', '#')):
-                href = 'https://github.com/awmoreira/kit-entrevista-real/blob/main/' + href
+            if not href.startswith(('https://', 'http://')):
+                path, sep, anchor = href.partition('#')
+                path = posixpath.normpath(posixpath.join(posixpath.dirname(source), unquote(path))) if path else source
+                if path.startswith(('../', '/')): raise ValueError(f'Link fora do projeto: {href}')
+                href = f'https://github.com/awmoreira/kit-entrevista-real/blob/v{VERSION}/' + quote(path, safe='/._-') + (sep + anchor if sep else '')
             output.append('<link href="' + html.escape(href, quote=True) + '" color="#17617a">')
         elif kind == 'link_close': output.append('</link>')
         elif kind == 'image': output.append(html.escape(token.content))
@@ -122,7 +127,7 @@ class Book(BaseDocTemplate):
             self.notify('TOCEntry', (level, text, self.page, key))
 
 
-def markdown_story(text, prefix, forms=False):
+def markdown_story(text, prefix, source, forms=False):
     tokens = MarkdownIt('commonmark').enable('table').parse(text)
     story = []
     i = 0
@@ -135,7 +140,7 @@ def markdown_story(text, prefix, forms=False):
             level = int(t.tag[1:])
             if level == 1 and story: story.append(PageBreak())
             if forms and level == 2 and tokens[i + 1].content.startswith('Ficha '): story.append(PageBreak())
-            p = Paragraph(inline(tokens[i + 1].children), STYLES[min(level, 3)])
+            p = Paragraph(inline(tokens[i + 1].children, source), STYLES[min(level, 3)])
             p.heading_level = 0 if level == 1 else 1
             p.bookmark_key = f'{prefix}-{headings}'
             headings += 1
@@ -144,7 +149,7 @@ def markdown_story(text, prefix, forms=False):
             continue
         if t.type == 'paragraph_open':
             style = FORM if forms and '____' in tokens[i + 1].content else BODY
-            story.append(Paragraph(inline(tokens[i + 1].children), BULLET if pending_bullet else style, bulletText=pending_bullet))
+            story.append(Paragraph(inline(tokens[i + 1].children, source), BULLET if pending_bullet else style, bulletText=pending_bullet))
             pending_bullet = None
             i += 3
             continue
@@ -180,7 +185,7 @@ def markdown_story(text, prefix, forms=False):
                 if cell.type == 'tr_open': row = []
                 elif cell.type == 'th_open': header = True
                 elif cell.type == 'td_open': header = False
-                elif cell.type == 'inline': row.append(Paragraph(inline(cell.children), TABLE_HEAD if header else SMALL))
+                elif cell.type == 'inline': row.append(Paragraph(inline(cell.children, source), TABLE_HEAD if header else SMALL))
                 elif cell.type == 'tr_close': rows.append(row)
                 i += 1
             cols = len(rows[0])
@@ -188,7 +193,7 @@ def markdown_story(text, prefix, forms=False):
             headers = [cell.getPlainText() for cell in rows[0]]
             if 'Nota / NO' in headers: weights = [0.30, 0.13, 0.57]
             if 'Início relativo' in headers: weights = [0.22, 0.16, 0.12, 0.50]
-            table = LongTable(rows, colWidths=[WIDTH * w for w in weights], repeatRows=1, hAlign='LEFT', spaceAfter=13)
+            table = LongTable(rows, colWidths=[WIDTH * w for w in weights], repeatRows=1, rowSplitRange=(2, -1), hAlign='LEFT', spaceAfter=13)
             table.setStyle(TableStyle([
                 ('BACKGROUND', (0, 0), (-1, 0), INK),
                 ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, LIGHT]),
@@ -197,7 +202,7 @@ def markdown_story(text, prefix, forms=False):
                 ('TOPPADDING', (0, 0), (-1, -1), 7), ('BOTTOMPADDING', (0, 0), (-1, -1), 7),
                 ('LINEBELOW', (0, 0), (-1, 0), 1, GOLD),
             ]))
-            story.append(table)
+            story.append(KeepTogether([table]) if len(rows) <= 5 else table)
         i += 1
     return story
 
@@ -223,7 +228,7 @@ def build(volume):
         text = (ROOT / source).read_text()
         if re.search('[\u2010-\u2015]', text):
             raise ValueError(f'Use hífen ASCII em {source}')
-        story.extend(markdown_story(text, f"v{volume['id']}-s{index}", forms=source.endswith('04-fichas.md')))
+        story.extend(markdown_story(text, f"v{volume['id']}-s{index}", source, forms=source.endswith('04-fichas.md')))
     Book(volume).multiBuild(story)
 
 

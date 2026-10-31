@@ -2,11 +2,15 @@
 
 ## Como preencher
 
-Edição 1.0.0. Estas fichas são modelos estáticos para impressão ou edição em Markdown. Copie este arquivo para minhas-respostas/fichas.md e mantenha seus registros locais. Você pode duplicar uma ficha por sessão. Os PDFs não exigem nem enviam dados a um servidor.
+Edição 1.1.0. Estas fichas são modelos estáticos para impressão ou edição em Markdown. Copie este arquivo para minhas-respostas/fichas.md e mantenha seus registros locais. Você pode duplicar uma ficha por sessão. Os PDFs não exigem nem enviam dados a um servidor.
 
 Data: ____________________  Pessoa: ____________________  Objetivo da sessão: ____________________
 
 Modo: estudo guiado / simulado. Nível de referência: pleno / sênior. Consulta e ferramentas combinadas: ____________________
+
+Modalidade: laboratório / documental. Já consultou soluções? ______  Pausas e ajuda combinadas: ____________________
+
+As linhas são um roteiro para síntese. Escreva narrativas completas no verso ou em um arquivo anexo; não é necessário reduzir uma história de dois minutos ao espaço de uma linha.
 
 ## Ficha 1: mapa de histórias
 
@@ -147,6 +151,8 @@ O simulado termina em 01:30. Reserve mais 15 minutos de debrief fora desses 90 m
 
 Use 1 a 4 conforme as âncoras do gabarito ou NO para não observado. Toda nota exige evidência. Registre primeiro sua visão e depois, se houver, a observação de quem acompanhou.
 
+NO indica falta de oportunidade suficiente. Uma resposta tecnicamente insuficiente observada não vira NO; honestidade não diminui colaboração. Registre também a pergunta feita e a ajuda recebida junto com a evidência. Nota 4 não significa automaticamente sênior.
+
 | Competência técnica | Nota / NO | Evidência e próximo aprofundamento |
 | --- | --- | --- |
 | Investigação | ______ | ____________________ |
@@ -171,6 +177,8 @@ Ponto em que autoavaliação e observação divergiram: ________________________
 
 Evidência e âncora discutidas: _________________________________________________
 
+Risco central demonstrado que a média não deve esconder: __________________________
+
 ## Ficha 8: plano de melhoria
 
 Escolha até duas ações concretas. Uma ação inclui comportamento, nova oportunidade e forma de verificar, em vez de apenas o nome de uma tecnologia.
@@ -183,6 +191,8 @@ Escolha até duas ações concretas. Uma ação inclui comportamento, nova oport
 Uma competência NO que precisa de nova oportunidade: _____________________________
 
 Variação escolhida para evitar repetir de memória: _______________________________
+
+Condições comparáveis na nova rodada: nível, modalidade, ferramentas e ajuda: ____________________
 
 Resultado da nova tentativa e ajuste no plano: ___________________________________
 

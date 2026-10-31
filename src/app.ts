@@ -1,17 +1,18 @@
 import Fastify from 'fastify';
 import { z } from 'zod';
 import type { Pool } from 'pg';
-import { DomainError, type Hooks } from './domain.js';
+import { DomainError, type Hooks, type CreateOrder } from './domain.js';
 import { createOrder as base } from './versions/base.js';
 import { createOrder as proposta } from './versions/proposta.js';
 import { createOrder as referencia } from './versions/referencia.js';
+import { createOrder as candidato } from './versions/candidato.js';
 import { listOrders } from './list-orders.js';
-export type Version = 'base' | 'proposta' | 'referencia';
-const creators = { base, proposta, referencia };
+export type Version = 'base' | 'proposta' | 'referencia' | 'candidato';
+const creators = { base, proposta, referencia, candidato };
 const identities: Record<string, string> = { 'empresa-aurora': 'aurora', 'empresa-brisa': 'brisa' };
 const input = z.object({ productId: z.string().min(1).max(80), quantity: z.number().int().min(1).max(20),
   priceCents: z.number().int().min(0).max(1000000).optional() }).strict();
-export function buildApp(pool: Pool, version: Version = 'proposta', options: { listMode?: 'lento' | 'corrigido'; hooks?: Hooks } = {}) {
+export function buildApp(pool: Pool, version: Version = 'proposta', options: { listMode?: 'lento' | 'corrigido'; hooks?: Hooks; createOrder?: CreateOrder } = {}) {
   const app = Fastify({ logger: false, bodyLimit: 16384 });
   app.setErrorHandler((error, _request, reply) => {
     if (error instanceof DomainError) return reply.code(error.status).send({ error: error.code });
@@ -35,7 +36,7 @@ export function buildApp(pool: Pool, version: Version = 'proposta', options: { l
     const parsed = input.safeParse(request.body);
     const key = request.headers['idempotency-key'];
     if (!parsed.success || typeof key !== 'string' || !/^[a-zA-Z0-9._:-]{1,100}$/.test(key)) throw new DomainError(400, 'invalid_order');
-    const result = await creators[version](pool, identities[request.headers['x-test-identity'] as string], parsed.data, key, options.hooks);
+    const result = await (options.createOrder ?? creators[version])(pool, identities[request.headers['x-test-identity'] as string], parsed.data, key, options.hooks);
     return reply.code(201).send(result);
   });
   return app;

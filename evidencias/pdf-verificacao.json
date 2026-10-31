@@ -1,49 +1,53 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "automaticChecks": [
     {
       "file": "01-guia-preparacao.pdf",
       "pages": 7,
-      "textCharacters": 16570,
-      "annotations": 44,
-      "sha256": "d590b06e617a919ce70638c8ed61ab2990c6c56e21cb9b1572107a4fd71b7203",
+      "textCharacters": 18689,
+      "annotations": 46,
+      "sha256": "a8282ee3cee416093e435152672408d297477905aaa17444cbb296b798541531",
       "sourceHashesVerified": true,
       "selectableText": true,
       "pageBoundsVerified": true,
-      "bookmarksPresent": true
+      "bookmarksPresent": true,
+      "editionLinksVerified": 2
     },
     {
       "file": "02-caderno-exercicios.pdf",
-      "pages": 14,
-      "textCharacters": 36053,
-      "annotations": 118,
-      "sha256": "72290c0ee084974ae92739cb9b1fb188c5aa4a90e534f206447031823a4f720d",
+      "pages": 15,
+      "textCharacters": 38783,
+      "annotations": 125,
+      "sha256": "1b29bcffbd051d47894baa78db0eb2e03257033f6ca2f1313332edf653a40724",
       "sourceHashesVerified": true,
       "selectableText": true,
       "pageBoundsVerified": true,
-      "bookmarksPresent": true
+      "bookmarksPresent": true,
+      "editionLinksVerified": 1
     },
     {
       "file": "03-gabaritos-conducao.pdf",
-      "pages": 11,
-      "textCharacters": 28619,
-      "annotations": 66,
-      "sha256": "c59b341ede905f8c7bc6313162242c3cc17d8a289f5935d9ba5e7f5c245cd0b8",
+      "pages": 19,
+      "textCharacters": 52723,
+      "annotations": 128,
+      "sha256": "a19b28a462df966410bda3fd99da1b62de207e550cf30508019f3ee3f2016b61",
       "sourceHashesVerified": true,
       "selectableText": true,
       "pageBoundsVerified": true,
-      "bookmarksPresent": true
+      "bookmarksPresent": true,
+      "editionLinksVerified": 0
     },
     {
       "file": "04-fichas-pratica.pdf",
       "pages": 15,
-      "textCharacters": 19345,
-      "annotations": 44,
-      "sha256": "66e9aa258a44a012f4c65550643ae5fba34b4acfb021d8fa48bb26527e1a5478",
+      "textCharacters": 21856,
+      "annotations": 46,
+      "sha256": "64a4661d180d5ca844966fe52130f2b14e75036fe729f9611dc4b68f2083d176",
       "sourceHashesVerified": true,
       "selectableText": true,
       "pageBoundsVerified": true,
-      "bookmarksPresent": true
+      "bookmarksPresent": true,
+      "editionLinksVerified": 0
     }
   ],
   "visualReview": "Ver registro da edição; verificações automáticas não substituem inspeção visual."

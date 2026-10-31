@@ -9,4 +9,4 @@ Você pode compartilhar e adaptar os materiais sob os termos de CC BY-NC 4.0: da
 - [Resumo oficial em português](https://creativecommons.org/licenses/by-nc/4.0/deed.pt-br)
 - [Termos completos](https://creativecommons.org/licenses/by-nc/4.0/legalcode.pt)
 
-Atribuição sugerida: "Kit Entrevista Real, Allan Winckler, edição 1.0.0, CC BY-NC 4.0. Adaptado por [seu nome], com [alterações]". A licença não implica endosso de uma adaptação pelo autor original.
+Atribuição sugerida: "Kit Entrevista Real, Allan Winckler, edição 1.1.0, CC BY-NC 4.0. Adaptado por [seu nome], com [alterações]". A licença não implica endosso de uma adaptação pelo autor original.
