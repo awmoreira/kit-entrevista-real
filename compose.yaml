@@ -1,0 +1,19 @@
+name: kit-entrevista-real
+services:
+  postgres:
+    image: postgres:17.10-alpine@sha256:742f40ea20b9ff2ff31db5458d127452988a2164df9e17441e191f3b72252193
+    environment:
+      POSTGRES_USER: kit
+      POSTGRES_PASSWORD: kit_local
+      POSTGRES_DB: kit_entrevista_real
+    ports:
+      - "127.0.0.1:55437:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U kit -d kit_entrevista_real"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+    volumes:
+      - kit_pg:/var/lib/postgresql/data
+volumes:
+  kit_pg:

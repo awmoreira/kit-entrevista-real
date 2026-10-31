@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0",
+  "reviewedAt": "2026-10-31T01:13:42.300364+00:00",
+  "reviewer": "Codex",
+  "approved": true,
+  "pagesInspected": 47,
+  "sourcesSha256": "0a039080b22b4fca0e9715ecf61d931bd12e417991fbcbacb076c5ab25204a5e",
+  "method": "Inspeção de todas as páginas renderizadas em folhas de contato; conferência em resolução de leitura de texto, comandos, tabelas e fichas.",
+  "contactSheets": [
+    "docs/revisao-visual/01-contact-1.jpg",
+    "docs/revisao-visual/02-contact-1.jpg",
+    "docs/revisao-visual/02-contact-2.jpg",
+    "docs/revisao-visual/03-contact-1.jpg",
+    "docs/revisao-visual/03-contact-2.jpg",
+    "docs/revisao-visual/04-contact-1.jpg",
+    "docs/revisao-visual/04-contact-2.jpg"
+  ],
+  "findings": "Sem cortes, sobreposição ou glifos inválidos observados. Fichas começam em páginas próprias; comandos longos preservam argumentos e continuação de shell."
+}

@@ -1,0 +1,33 @@
+{
+  "name": "kit-entrevista-real",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Preparação prática para entrevistas de backend pleno e sênior",
+  "author": "Allan Winckler",
+  "license": "MIT",
+  "engines": { "node": ">=24 <25" },
+  "type": "module",
+  "scripts": {
+    "lab:setup": "node scripts/setup.mjs",
+    "lab:reset": "tsx scripts/database.ts",
+    "lab:volume": "tsx scripts/volume.ts",
+    "lab:start": "tsx src/server.ts",
+    "lab:stop": "docker compose down",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src scripts tests",
+    "test": "vitest run tests/iniciais.test.ts",
+    "test:reference": "vitest run tests/referencia.test.ts",
+    "verify:bugs": "tsx scripts/verify-bugs.ts",
+    "bench": "tsx scripts/benchmark.ts",
+    "pr:diff": "node scripts/pr-diff.mjs",
+    "docs:check": "node scripts/check-docs.mjs",
+    "docs:build": "node scripts/pdf.mjs",
+    "docs:verify": "node scripts/pdf.mjs --verify",
+    "release:check": "node scripts/check-suite.mjs",
+    "release:pack": "node scripts/pack.mjs",
+    "release:verify-archive": "node scripts/verify-archive.mjs"
+  },
+  "overrides": { "minimatch": "11.0.1" },
+  "dependencies": { "fastify": "5.12.7", "pg": "8.23.1", "zod": "4.6.7" },
+  "devDependencies": { "@eslint/js": "10.0.1", "@types/node": "24.10.1", "@types/pg": "8.23.1", "eslint": "10.14.0", "tsx": "4.23.15", "typescript": "5.9.3", "typescript-eslint": "8.72.1", "vitest": "5.0.5" }
+}

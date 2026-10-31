@@ -1,0 +1,27 @@
+{
+  "version": "1.0.0",
+  "capturedAt": "2026-10-31T01:16:14.408Z",
+  "node": "v24.22.1",
+  "filesVerified": 80,
+  "sourcesSha256": "25c5ae3ae314381643b6b95b795c1b71832921a2b03c232ab18dfb96e892d402",
+  "checks": [
+    "npm ci",
+    "npm run lab:setup",
+    "npm test",
+    "npm run test:reference",
+    "npm run verify:bugs",
+    "npm run typecheck",
+    "npm run lint",
+    "npm run docs:check"
+  ],
+  "smoke": {
+    "transport": "HTTP TCP real em 127.0.0.1:3337",
+    "list": 200,
+    "queries": 2,
+    "create": 201,
+    "replaySameId": true,
+    "authoritativeTotal": 3000,
+    "foreignProduct": 404
+  },
+  "note": "Hash de fontes e não do próprio ZIP para evitar autorreferência do relatório."
+}

@@ -1,0 +1,121 @@
+{
+  "version": "1.0.0",
+  "capturedAt": "2026-10-31T01:15:45.980Z",
+  "node": "v24.22.1",
+  "postgres": "17.10",
+  "sourceSha256": "5be9c2a1b5f8e1cc7d562e303be1572cc2eb56eb24ebfc3b857e10c63ce8bb9a",
+  "results": [
+    {
+      "id": "B01",
+      "title": "Produto de outra empresa não pode ser comprado",
+      "expected": {
+        "status": 404,
+        "foreignStock": 10,
+        "orders": 0
+      },
+      "proposed": {
+        "status": 201,
+        "foreignStock": 9,
+        "orders": 1
+      },
+      "reference": {
+        "status": 404,
+        "foreignStock": 10,
+        "orders": 0
+      },
+      "regressionFailed": true
+    },
+    {
+      "id": "B02",
+      "title": "O preço autoritativo vem do catálogo",
+      "expected": {
+        "status": 201,
+        "unitPriceCents": 1500,
+        "totalCents": 3000
+      },
+      "proposed": {
+        "status": 201,
+        "unitPriceCents": 1,
+        "totalCents": 2
+      },
+      "reference": {
+        "status": 201,
+        "unitPriceCents": 1500,
+        "totalCents": 3000
+      },
+      "regressionFailed": true
+    },
+    {
+      "id": "B03",
+      "title": "Duas compras concorrentes não tornam estoque negativo",
+      "expected": {
+        "accepted": 1,
+        "rejected": 1,
+        "available": 0,
+        "orders": 1
+      },
+      "proposed": {
+        "accepted": 2,
+        "rejected": 0,
+        "available": -1,
+        "orders": 2
+      },
+      "reference": {
+        "accepted": 1,
+        "rejected": 1,
+        "available": 0,
+        "orders": 1
+      },
+      "regressionFailed": true
+    },
+    {
+      "id": "B04",
+      "title": "Falha de persistência desfaz a reserva de estoque",
+      "expected": {
+        "status": 500,
+        "sqlState": "22012",
+        "available": 10,
+        "orders": 0
+      },
+      "proposed": {
+        "status": 500,
+        "sqlState": "22012",
+        "available": 9,
+        "orders": 0
+      },
+      "reference": {
+        "status": 500,
+        "sqlState": "22012",
+        "available": 10,
+        "orders": 0
+      },
+      "regressionFailed": true
+    },
+    {
+      "id": "B05",
+      "title": "Repetir a mesma chave retorna o mesmo pedido",
+      "expected": {
+        "first": 201,
+        "second": 201,
+        "sameId": 1,
+        "available": 9,
+        "orders": 1
+      },
+      "proposed": {
+        "first": 201,
+        "second": 201,
+        "sameId": 0,
+        "available": 8,
+        "orders": 2
+      },
+      "reference": {
+        "first": 201,
+        "second": 201,
+        "sameId": 1,
+        "available": 9,
+        "orders": 1
+      },
+      "regressionFailed": true
+    }
+  ]
+}

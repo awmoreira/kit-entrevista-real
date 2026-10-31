@@ -1,0 +1,15 @@
+name: Retorno pedagógico
+description: Clareza dos enunciados, gabaritos e rubricas
+body:
+  - type: textarea
+    attributes:
+      label: Material e trecho
+      description: Informe edição, volume e pergunta ou seção.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Dificuldade e evidência
+      description: Explique o que tentou, onde houve dúvida e qual mudança ajudaria. Compartilhe somente relatos que deseja tornar públicos.
+    validations:
+      required: true

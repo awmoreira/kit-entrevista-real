@@ -1,0 +1,44 @@
+{
+  "version": "1.0.0",
+  "capturedAt": "2026-10-31T01:02:56.504Z",
+  "transport": "Fastify inject: HTTP em processo; PostgreSQL por TCP local",
+  "environment": {
+    "node": "v24.22.1",
+    "postgres": "17.10",
+    "os": "darwin 25.2.0",
+    "arch": "arm64",
+    "cpu": "Apple M5",
+    "logicalCpus": 10,
+    "poolMax": 8
+  },
+  "dataset": {
+    "seed": "generate_series 1..10000 por empresa; relógio fixo 2026-01-01 UTC",
+    "tenants": 2,
+    "orders": 20000,
+    "items": 20000,
+    "confirmedPerTenant": 8000,
+    "pageSize": 50,
+    "warmup": 3,
+    "indexDuringComparison": false
+  },
+  "observations": [
+    {
+      "mode": "lento",
+      "samples": 20,
+      "concurrency": 1,
+      "queries": 51,
+      "p50Ms": 8,
+      "p95Ms": 9.74,
+      "responseSha256": "a0ef5ab4bc7a009874b8f15cac705263bbb2884ae705219bcfd65bc7a9b0ef52"
+    },
+    {
+      "mode": "corrigido",
+      "samples": 20,
+      "concurrency": 1,
+      "queries": 2,
+      "p50Ms": 2.57,
+      "p95Ms": 2.9,
+      "responseSha256": "a0ef5ab4bc7a009874b8f15cac705263bbb2884ae705219bcfd65bc7a9b0ef52"
+    }
+  ]
+}

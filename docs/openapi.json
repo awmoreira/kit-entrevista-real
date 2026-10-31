@@ -1,0 +1,77 @@
+{
+  "openapi": "3.1.0",
+  "info": { "title": "Central de Pedidos - laboratório didático", "version": "1.0.0", "description": "Identidades locais públicas. Contrato de referência; a proposta contém defeitos intencionais. A versão base aceita somente leitura e retorna 501 na criação." },
+  "servers": [{ "url": "http://127.0.0.1:3337" }],
+  "security": [{ "TestIdentity": [] }],
+  "paths": {
+    "/orders": {
+      "get": {
+        "summary": "Primeira página de pedidos confirmados da empresa",
+        "description": "Ordenação por created_at DESC, id DESC. Sem cursor nesta edição.",
+        "parameters": [{ "name": "limit", "in": "query", "schema": { "type": "integer", "minimum": 1, "maximum": 100, "default": 20 } }],
+        "responses": {
+          "200": {
+            "description": "Pedidos e itens autorizados",
+            "headers": { "x-lab-sql-count": { "description": "Contagem didática de consultas SQL da listagem", "schema": { "type": "integer" } } },
+            "content": { "application/json": { "schema": {
+              "type": "object", "required": ["orders"], "additionalProperties": false,
+              "properties": { "orders": { "type": "array", "items": {
+                "type": "object", "required": ["id", "status", "createdAt", "items"], "additionalProperties": false,
+                "properties": {
+                  "id": { "type": "string" }, "status": { "const": "confirmed" },
+                  "createdAt": { "type": "string", "description": "Representação textual de timestamptz PostgreSQL; não é contratada como ISO 8601 estrita nesta edição." },
+                  "items": { "type": "array", "items": {
+                    "type": "object", "required": ["productId", "quantity", "unitPriceCents"], "additionalProperties": false,
+                    "properties": { "productId": { "type": "string" }, "quantity": { "type": "integer" }, "unitPriceCents": { "type": "integer" } }
+                  } }
+                }
+              } } }
+            } } }
+          },
+          "400": { "$ref": "#/components/responses/Invalid" },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "500": { "$ref": "#/components/responses/Internal" }
+        }
+      },
+      "post": {
+        "summary": "Criar pedido e reservar estoque de um produto",
+        "description": "Preço vem do catálogo. Mesma empresa/chave/produto/quantidade retorna o mesmo pedido; conteúdo diferente gera 409. A retenção de chaves do laboratório é ilimitada.",
+        "parameters": [{ "name": "idempotency-key", "in": "header", "required": true, "schema": { "type": "string", "pattern": "^[a-zA-Z0-9._:-]{1,100}$" } }],
+        "requestBody": { "required": true, "content": { "application/json": { "schema": {
+          "type": "object", "required": ["productId", "quantity"], "additionalProperties": false,
+          "properties": {
+            "productId": { "type": "string", "minLength": 1, "maxLength": 80 },
+            "quantity": { "type": "integer", "minimum": 1, "maximum": 20 },
+            "priceCents": { "type": "integer", "minimum": 0, "maximum": 1000000, "deprecated": true, "description": "Campo legado ignorado pela referência. O preço autoritativo vem do catálogo." }
+          }
+        } } } },
+        "responses": {
+          "201": { "description": "Pedido criado ou resposta persistida de uma repetição", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Order" } } } },
+          "400": { "$ref": "#/components/responses/Invalid" },
+          "401": { "$ref": "#/components/responses/Unauthorized" },
+          "404": { "description": "Produto inexistente ou de outra empresa" },
+          "409": { "description": "Estoque insuficiente ou idempotency_conflict" },
+          "500": { "$ref": "#/components/responses/Internal" },
+          "501": { "description": "Criação indisponível somente na versão base" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": { "TestIdentity": { "type": "apiKey", "in": "header", "name": "x-test-identity", "description": "empresa-aurora ou empresa-brisa; somente prática local" } },
+    "schemas": {
+      "Order": {
+        "type": "object", "additionalProperties": false,
+        "required": ["id", "tenantId", "productId", "quantity", "unitPriceCents", "totalCents"],
+        "properties": { "id": { "type": "string" }, "tenantId": { "type": "string" }, "productId": { "type": "string" },
+          "quantity": { "type": "integer" }, "unitPriceCents": { "type": "integer" }, "totalCents": { "type": "integer" } }
+      },
+      "Error": { "type": "object", "required": ["error"], "properties": { "error": { "type": "string" } } }
+    },
+    "responses": {
+      "Invalid": { "description": "Entrada inválida", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
+      "Unauthorized": { "description": "Identidade de teste ausente ou desconhecida", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } },
+      "Internal": { "description": "Falha interna sem detalhes SQL", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/Error" } } } }
+    }
+  }
+}

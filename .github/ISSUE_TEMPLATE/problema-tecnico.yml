@@ -1,0 +1,15 @@
+name: Problema técnico
+description: Instalação, laboratório, PDFs ou pacote
+body:
+  - type: textarea
+    attributes:
+      label: Edição e ambiente
+      description: Informe edição do kit, Node, Docker e sistema. Não inclua credenciais.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Comando e resultado
+      description: Passos, resultado esperado, resultado observado e mensagem de erro.
+    validations:
+      required: true
